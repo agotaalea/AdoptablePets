@@ -119,5 +119,25 @@ namespace DRPDH3_HFT_2023241.Test
 
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        public void CreatePetTest()
+        {
+            var pet = new Pet() { Id = 9 };
+            logic.Create(pet);
+            mockPetRepo.Verify(r => r.Create(pet), Times.Once);
+        }
+
+        [Test]
+        public void CreatePetTestAlreadyExists()
+        {
+            var pet = new Pet() { Id = 1 };
+            try
+            {
+                logic.Create(pet);
+            }
+            catch { }
+            mockPetRepo.Verify(r => r.Create(pet), Times.Never);
+        }
     }
 }

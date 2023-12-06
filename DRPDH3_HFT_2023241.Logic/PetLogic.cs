@@ -3,8 +3,6 @@ using DRPDH3_HFT_2023241.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DRPDH3_HFT_2023241.Logic
 {
@@ -23,6 +21,11 @@ namespace DRPDH3_HFT_2023241.Logic
 
         public void Create(Pet item)
         {
+            if (this.petRepo.ReadAll().Where(p => p.Id == item.Id).FirstOrDefault() != null)
+            {
+                throw new ArgumentException("Ilyen ID-val mar letezik rekord.");
+            }
+
             this.petRepo.Create(item);
         }
 
