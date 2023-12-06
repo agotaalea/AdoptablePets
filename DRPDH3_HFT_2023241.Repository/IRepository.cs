@@ -8,7 +8,7 @@ namespace DRPDH3_HFT_2023241.Repository
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> ReadAll();
+        IEnumerable<T> ReadAll();
 
         //CRUD
         void Create(T item);
