@@ -55,9 +55,9 @@ namespace DRPDH3_HFT_2023241.Logic
             return mostAdopted;
         }
 
-        public IEnumerable<Pet> GetPetsAdoptedBy(int id)
+        public IEnumerable<Pet> GetPetsAdoptedBy(string name)
         {
-            IEnumerable<int> petsId = this.adoptRepo.ReadAll().Where(a => a.Id == id).Select(a => a.PetId);
+            IEnumerable<int> petsId = this.adoptRepo.ReadAll().Where(a => a.AdopterName == name).Select(a => a.PetId);
             IEnumerable<Pet> pets = this.petRepo.ReadAll().Where(p => petsId.Contains(p.Id));
             return pets;
         }
@@ -80,7 +80,8 @@ namespace DRPDH3_HFT_2023241.Logic
 
         public IEnumerable<Pet> GetPetsBySpecies(string species)
         {
-            int speciesId = this.specRepo.ReadAll().Where(s => s.Name == species).FirstOrDefault().Id;
+            species = species.ToUpper();
+            int speciesId = this.specRepo.ReadAll().Where(s => s.Name.ToUpper() == species).FirstOrDefault().Id;
             IEnumerable<Pet> pets = this.petRepo.ReadAll().Where(p => p.SpeciesId == speciesId);
             return pets;
         }

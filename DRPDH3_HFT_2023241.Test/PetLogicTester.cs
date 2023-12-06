@@ -40,9 +40,11 @@ namespace DRPDH3_HFT_2023241.Test
             mockAdoptRepo.Setup(p => p.ReadAll()).Returns(new List<Adoption>()
             {
                 new Adoption("1;1;Lea;2023.01.01;+36301234567"),
-                new Adoption("2;2;Lea;2023.01.02;+36301234567"),
+                new Adoption("2;2;Lea;2023.01.01;+36301234567"),
                 new Adoption("3;3;Lea;2023.01.03;+36301234567"),
                 new Adoption("4;8;Sanyi;2023.05.25;sanyika.sanyi@gmail.com"),
+                new Adoption("5;3;Sanyi;2023.06.03;sanyika.sanyi@gmail.com"),
+                new Adoption("6;8;Lea;2023.06.04;+36301234567"),
             }.AsQueryable());
 
             mockSpecRepo.Setup(p => p.ReadAll()).Returns(new List<Species>()
@@ -55,6 +57,67 @@ namespace DRPDH3_HFT_2023241.Test
             }.AsQueryable());
 
             logic = new PetLogic(mockPetRepo.Object, mockAdoptRepo.Object, mockSpecRepo.Object);
+        }
+
+        [Test]
+        public void GetPetsBySpeciesTest()
+        {
+            List<int> actual = logic.GetPetsBySpecies("kutya").Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                2, 7
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetPetsByAdoptonDateTest()
+        {
+            DateTime dt = new DateTime(2023, 01, 01);
+            List<int> actual = logic.GetPetsByAdoptonDate(dt).Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                1, 2
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetNLeastAdoptedTest()
+        {
+            List<int> actual = logic.GetNLeastAdopted(2).Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                1, 2
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetPetsAdoptedByTest()
+        {
+            List<int> actual = logic.GetPetsAdoptedBy("Lea").Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                1, 2, 3, 8
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetNMostAdopted()
+        {
+            List<int> actual = logic.GetNMostAdopted(2).Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                3, 8
+            };
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
