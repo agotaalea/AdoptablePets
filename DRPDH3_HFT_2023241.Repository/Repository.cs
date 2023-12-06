@@ -29,7 +29,7 @@ namespace DRPDH3_HFT_2023241.Repository
 
         public abstract T Read(int id);
 
-        public IQueryable<T> ReadAll()
+        public IEnumerable<T> ReadAll()
         {
             return ctx.Set<T>();
         }

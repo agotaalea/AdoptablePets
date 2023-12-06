@@ -32,7 +32,7 @@ namespace DRPDH3_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IQueryable<Adoption> ReadAll()
+        public IEnumerable<Adoption> ReadAll()
         {
             return this.repo.ReadAll();
         }

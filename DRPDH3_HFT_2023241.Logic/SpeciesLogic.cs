@@ -1,6 +1,7 @@
 ﻿using DRPDH3_HFT_2023241.Models;
 using DRPDH3_HFT_2023241.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DRPDH3_HFT_2023241.Logic
@@ -29,7 +30,7 @@ namespace DRPDH3_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IQueryable<Species> ReadAll()
+        public IEnumerable<Species> ReadAll()
         {
             return this.repo.ReadAll();
         }
