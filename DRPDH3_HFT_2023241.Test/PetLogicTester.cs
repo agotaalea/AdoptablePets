@@ -60,12 +60,29 @@ namespace DRPDH3_HFT_2023241.Test
         }
 
         [Test]
-        public void GetPetsBySpeciesTest()
+        public void GetPetsBySpeciesTestWithKutya()
         {
             List<int> actual = logic.GetPetsBySpecies("kutya").Select(p => p.Id).ToList();
             List<int> expected = new List<int>()
             {
                 2, 7
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetPetsBySpeciesDoesNotExist()
+        {
+            List<Pet> pets = logic.GetPetsBySpecies("majom").ToList();
+            List<int> actual = new List<int>();
+            if (pets.Count != 0)
+            {
+                actual = logic.GetPetsBySpecies("majom").Select(p => p.Id).ToList();
+            }
+            
+            List<int> expected = new List<int>()
+            {
             };
 
             Assert.AreEqual(expected, actual);
@@ -85,7 +102,7 @@ namespace DRPDH3_HFT_2023241.Test
         }
 
         [Test]
-        public void GetNLeastAdoptedTest()
+        public void GetNLeastAdoptedTestWith2()
         {
             List<int> actual = logic.GetNLeastAdopted(2).Select(p => p.Id).ToList();
             List<int> expected = new List<int>()
@@ -97,7 +114,18 @@ namespace DRPDH3_HFT_2023241.Test
         }
 
         [Test]
-        public void GetPetsAdoptedByTest()
+        public void GetNLeastAdoptedTestWith0()
+        {
+            List<Pet> actual = logic.GetNLeastAdopted(0).ToList();
+            List<Pet> expected = new List<Pet>()
+            {
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetPetsAdoptedByTestWithLea()
         {
             List<int> actual = logic.GetPetsAdoptedBy("Lea").Select(p => p.Id).ToList();
             List<int> expected = new List<int>()
@@ -109,12 +137,24 @@ namespace DRPDH3_HFT_2023241.Test
         }
 
         [Test]
-        public void GetNMostAdopted()
+        public void GetNMostAdoptedWith2()
         {
             List<int> actual = logic.GetNMostAdopted(2).Select(p => p.Id).ToList();
             List<int> expected = new List<int>()
             {
                 3, 8
+            };
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void GetNMostAdoptedWith10()
+        {
+            List<int> actual = logic.GetNMostAdopted(10).Select(p => p.Id).ToList();
+            List<int> expected = new List<int>()
+            {
+                1, 2, 3, 8
             };
 
             Assert.AreEqual(expected, actual);

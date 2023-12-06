@@ -67,10 +67,15 @@ namespace DRPDH3_HFT_2023241.Logic
 
         public IEnumerable<Pet> GetNLeastAdopted(int n)
         {
-            IEnumerable<Adoption> adoptions = this.adoptRepo.ReadAll();
-            IEnumerable<Pet> pets = this.petRepo.ReadAll();
-            IEnumerable<int> leastAdoptedIds = adoptions.GroupBy(a => a.PetId).OrderBy(g => g.Count()).Take(n).Select(g => g.Key);
-            IEnumerable<Pet> leastAdopted = pets.Where(p => leastAdoptedIds.Contains(p.Id));
+            IEnumerable<Pet> leastAdopted = new List<Pet>();
+            if (n > 0)
+            {
+                IEnumerable<Adoption> adoptions = this.adoptRepo.ReadAll();
+                IEnumerable<Pet> pets = this.petRepo.ReadAll();
+                IEnumerable<int> leastAdoptedIds = adoptions.GroupBy(a => a.PetId).OrderBy(g => g.Count()).Take(n).Select(g => g.Key);
+                leastAdopted = pets.Where(p => leastAdoptedIds.Contains(p.Id));
+            }
+            
             return leastAdopted;
         }
 
@@ -83,9 +88,16 @@ namespace DRPDH3_HFT_2023241.Logic
 
         public IEnumerable<Pet> GetPetsBySpecies(string species)
         {
+            IEnumerable<Pet> pets = new List<Pet>();
             species = species.ToUpper();
-            int speciesId = this.specRepo.ReadAll().Where(s => s.Name.ToUpper() == species).FirstOrDefault().Id;
-            IEnumerable<Pet> pets = this.petRepo.ReadAll().Where(p => p.SpeciesId == speciesId);
+            Species spec = this.specRepo.ReadAll().Where(s => s.Name.ToUpper() == species).FirstOrDefault();
+            int speciesId = -1;
+            if (spec != null)
+            {
+                speciesId = spec.Id;
+                pets = this.petRepo.ReadAll().Where(p => p.SpeciesId == speciesId);
+            }
+
             return pets;
         }
     }

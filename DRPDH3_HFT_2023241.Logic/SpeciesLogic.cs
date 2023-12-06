@@ -17,6 +17,11 @@ namespace DRPDH3_HFT_2023241.Logic
 
         public void Create(Species item)
         {
+            if (this.repo.ReadAll().Where(s => s.Id == item.Id).FirstOrDefault() != null)
+            {
+                throw new ArgumentException("Ilyen ID-val mar letezik rekord.");
+            }
+
             this.repo.Create(item);
         }
 
