@@ -2,6 +2,7 @@ using DRPDH3_HFT_2023241.Logic;
 using DRPDH3_HFT_2023241.Models;
 using DRPDH3_HFT_2023241.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
@@ -41,6 +42,13 @@ namespace DRPDH3_HFT_2023241.Endpoint
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
+                var response = new { error = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseRouting();
 
