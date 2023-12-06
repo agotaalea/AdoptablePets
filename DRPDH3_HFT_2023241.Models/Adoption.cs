@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace DRPDH3_HFT_2023241.Models
 {
@@ -18,6 +19,7 @@ namespace DRPDH3_HFT_2023241.Models
         public DateTime AdoptionDate { get; set; }
         public string Contact { get; set; }
 
+        [JsonIgnore]
         public virtual Pet Pet { get; set; }
 
         public Adoption()

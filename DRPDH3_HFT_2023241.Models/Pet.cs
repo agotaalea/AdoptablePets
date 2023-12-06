@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace DRPDH3_HFT_2023241.Models
 {
@@ -18,7 +19,10 @@ namespace DRPDH3_HFT_2023241.Models
         public int Age { get; set; }
         public string Description { get; set; }
 
+        [JsonIgnore]
         public virtual Species Species { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<Adoption> Adoptions { get; set; }
 
         public Pet()

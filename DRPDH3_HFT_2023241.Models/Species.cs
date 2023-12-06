@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace DRPDH3_HFT_2023241.Models
 {
@@ -14,6 +15,7 @@ namespace DRPDH3_HFT_2023241.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Pet> Pets { get; set; }
 
         public Species()
