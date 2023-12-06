@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="NUnit" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DRPDH3_HFT_2023241.Logic\DRPDH3_HFT_2023241.Logic.csproj" />
     <ProjectReference Include="..\DRPDH3_HFT_2023241.Models\DRPDH3_HFT_2023241.Models.csproj" />
     <ProjectReference Include="..\DRPDH3_HFT_2023241.Repository\DRPDH3_HFT_2023241.Repository.csproj" />
