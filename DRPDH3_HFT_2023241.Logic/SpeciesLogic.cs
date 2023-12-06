@@ -1,12 +1,11 @@
 ﻿using DRPDH3_HFT_2023241.Models;
 using DRPDH3_HFT_2023241.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace DRPDH3_HFT_2023241.Logic
 {
-    public class SpeciesLogic
+    public class SpeciesLogic : ISpeciesLogic
     {
         IRepository<Species> repo;
 
@@ -35,7 +34,7 @@ namespace DRPDH3_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IEnumerable<Species> ReadAll()
+        public IQueryable<Species> ReadAll()
         {
             return this.repo.ReadAll();
         }

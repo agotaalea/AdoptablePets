@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DRPDH3_HFT_2023241.Logic
 {
-    public class PetLogic
+    public class PetLogic : IPetLogic
     {
         IRepository<Pet> petRepo;
         IRepository<Adoption> adoptRepo;
@@ -39,7 +39,7 @@ namespace DRPDH3_HFT_2023241.Logic
             return this.petRepo.Read(id);
         }
 
-        public IEnumerable<Pet> ReadAll()
+        public IQueryable<Pet> ReadAll()
         {
             return this.petRepo.ReadAll();
         }

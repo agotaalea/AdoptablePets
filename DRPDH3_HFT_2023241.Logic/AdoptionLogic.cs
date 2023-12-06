@@ -1,14 +1,11 @@
 ﻿using DRPDH3_HFT_2023241.Models;
 using DRPDH3_HFT_2023241.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DRPDH3_HFT_2023241.Logic
 {
-    public class AdoptionLogic
+    public class AdoptionLogic : IAdoptionLogic
     {
         IRepository<Adoption> repo;
 
@@ -37,7 +34,7 @@ namespace DRPDH3_HFT_2023241.Logic
             return this.repo.Read(id);
         }
 
-        public IEnumerable<Adoption> ReadAll()
+        public IQueryable<Adoption> ReadAll()
         {
             return this.repo.ReadAll();
         }
