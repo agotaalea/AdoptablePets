@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DRPDH3_HFT_2023241.Logic;
+using DRPDH3_HFT_2023241.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,36 +11,46 @@ namespace DRPDH3_HFT_2023241.Endpoint.Controllers
     [ApiController]
     public class SpeciesController : ControllerBase
     {
+        ISpeciesLogic logic;
+
+        public SpeciesController(ISpeciesLogic logic)
+        {
+            this.logic = logic;
+        }
+
         // GET: api/<SpeciesController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Species> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.logic.ReadAll();
         }
 
         // GET api/<SpeciesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Species Get(int id)
         {
-            return "value";
+            return this.logic.Read(id);
         }
 
         // POST api/<SpeciesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Species value)
         {
+            this.logic.Create(value);
         }
 
         // PUT api/<SpeciesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Species value)
         {
+            this.logic.Update(value);
         }
 
         // DELETE api/<SpeciesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this.logic.Delete(id);
         }
     }
 }
