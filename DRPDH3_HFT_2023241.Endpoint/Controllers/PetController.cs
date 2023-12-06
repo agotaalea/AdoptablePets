@@ -1,42 +1,54 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DRPDH3_HFT_2023241.Logic;
+using DRPDH3_HFT_2023241.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace DRPDH3_HFT_2023241.Endpoint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PetController : ControllerBase
     {
+        IPetLogic logic;
+
+        public PetController(IPetLogic logic)
+        {
+            this.logic = logic;
+        }
+
         // GET: api/<PetController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Pet> Get()
         {
-            return new string[] { "value1", "value2" };
+            return this.logic.ReadAll();
         }
 
         // GET api/<PetController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Pet Get(int id)
         {
-            return "value";
+            return this.logic.Read(id);
         }
 
         // POST api/<PetController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Pet value)
         {
+            this.logic.Create(value);
         }
 
         // PUT api/<PetController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public void Put([FromBody] Pet value)
         {
+            this.logic.Update(value);
         }
 
         // DELETE api/<PetController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            this.logic.Delete(id);
         }
     }
 }
