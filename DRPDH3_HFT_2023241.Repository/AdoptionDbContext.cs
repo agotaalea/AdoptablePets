@@ -34,7 +34,14 @@ namespace DRPDH3_HFT_2023241.Repository
 
             modelBuilder.Entity<Adoption>()
                 .HasOne(rec => rec.Pet)
-                .WithMany(pet => pet.Adoptions);
+                .WithMany(pet => pet.Adoptions)
+                .HasForeignKey(pet => pet.PetId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Species>()
+                .HasMany(spe => spe.Pets)
+                .WithOne(pet => pet.Species)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Species>().HasData(new Species[]
             {
@@ -63,9 +70,12 @@ namespace DRPDH3_HFT_2023241.Repository
             {   
                 //Id;PetId;AdopterName;AdoptionDate;Contact
                 new Adoption("1;1;Lea;2023.01.01;+36301234567"),
-                new Adoption("2;2;Lea;2023.01.02;+36301234567"),
-                new Adoption("3;3;Lea;2023.01.03;+36301234567"),
-                new Adoption("4;8;Sanyi;2023.05.25;sanyika.sanyi@gmail.com"),
+                new Adoption("2;8;Lea;2023.05.24;+36301234567"),
+                new Adoption("3;8;Sanyi;2023.05.25;sanyika.sanyi@gmail.com"),
+                new Adoption("4;3;Sanyi;2023.05.25;sanyika.sanyi@gmail.com"),
+                new Adoption("5;3;Lea;2023.05.25;+36301234567"),
+                new Adoption("6;3;Sanyi;2023.05.26;sanyika.sanyi@gmail.com"),
+                new Adoption("7;4;Sanyi;2023.05.25;sanyika.sanyi@gmail.com"),
             });
         }
     }

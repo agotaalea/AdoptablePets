@@ -61,7 +61,9 @@ namespace DRPDH3_HFT_2023241.Logic
         public IEnumerable<Pet> GetPetsAdoptedBy(string name)
         {
             IEnumerable<int> petsId = this.adoptRepo.ReadAll().Where(a => a.AdopterName == name).Select(a => a.PetId);
-            IEnumerable<Pet> pets = this.petRepo.ReadAll().Where(p => petsId.Contains(p.Id));
+            IEnumerable<Pet> pets = this.petRepo.ReadAll();
+            pets = pets.Where(p => petsId.Contains(p.Id));
+            
             return pets;
         }
 
@@ -82,7 +84,8 @@ namespace DRPDH3_HFT_2023241.Logic
         public IEnumerable<Pet> GetPetsByAdoptonDate(DateTime dt)
         {
             IEnumerable<int> petsId = this.adoptRepo.ReadAll().Where(a => a.AdoptionDate == dt).Select(a => a.PetId);
-            IEnumerable<Pet> pets = this.petRepo.ReadAll().Where(p => petsId.Contains(p.Id));
+            IEnumerable<Pet> pets = this.petRepo.ReadAll();
+            pets = pets.Where(p => petsId.Contains(p.Id));
             return pets;
         }
 

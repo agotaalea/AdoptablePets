@@ -1,6 +1,7 @@
 ﻿using DRPDH3_HFT_2023241.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,7 +25,10 @@ namespace DRPDH3_HFT_2023241.Repository
             Adoption oldAdoption = Read(newAdoption.Id);
             foreach (PropertyInfo adoptionInfo in oldAdoption.GetType().GetProperties())
             {
-                adoptionInfo.SetValue(oldAdoption, adoptionInfo.GetValue(newAdoption));
+                if (adoptionInfo.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    adoptionInfo.SetValue(oldAdoption, adoptionInfo.GetValue(newAdoption));
+                }
             }
 
             ctx.SaveChanges();

@@ -19,25 +19,25 @@ namespace DRPDH3_HFT_2023241.Endpoint.Controllers
             this.logic = logic;
         }
 
-        [HttpGet("{least}")]
-        public IEnumerable<Pet> GetLeastPets(int n)
+        [HttpGet("{n}")]
+        public IEnumerable<Pet> GetNLeastAdopted(int n)
         {
             return this.logic.GetNLeastAdopted(n);
         }
 
-        [HttpGet("{most}")]
-        public IEnumerable<Pet> GetMostPets(int n)
+        [HttpGet("{n}")]
+        public IEnumerable<Pet> GetNMostAdopted(int n)
         {
             return this.logic.GetNMostAdopted(n);
         }
 
         [HttpGet("{species}")]
-        public IEnumerable<Pet> GetPetsBySpecies(string spec)
+        public IEnumerable<Pet> GetPetsBySpecies(string species)
         {
-            return this.logic.GetPetsBySpecies(spec);
+            return this.logic.GetPetsBySpecies(species);
         }
 
-        [HttpGet("{adoptedBy}")]
+        [HttpGet("{name}")]
         public IEnumerable<Pet> GetPetsAdoptedBy(string name)
         {
             return this.logic.GetPetsAdoptedBy(name);

@@ -18,8 +18,6 @@ namespace DRPDH3_HFT_2023241.Models
         public string AdopterName { get; set; }
         public DateTime AdoptionDate { get; set; }
         public string Contact { get; set; }
-
-        [JsonIgnore]
         public virtual Pet Pet { get; set; }
 
         public Adoption()

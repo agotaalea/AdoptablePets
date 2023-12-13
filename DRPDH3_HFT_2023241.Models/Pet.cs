@@ -19,7 +19,6 @@ namespace DRPDH3_HFT_2023241.Models
         public int Age { get; set; }
         public string Description { get; set; }
 
-        [JsonIgnore]
         public virtual Species Species { get; set; }
 
         [JsonIgnore]

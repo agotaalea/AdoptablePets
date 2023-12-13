@@ -24,7 +24,10 @@ namespace DRPDH3_HFT_2023241.Repository
             Pet oldPet = Read(newPet.Id);
             foreach (PropertyInfo petInfo in oldPet.GetType().GetProperties())
             {
-                petInfo.SetValue(oldPet, petInfo.GetValue(newPet));
+                if (petInfo.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    petInfo.SetValue(oldPet, petInfo.GetValue(newPet));
+                }
             }
 
             ctx.SaveChanges();
